@@ -1,6 +1,6 @@
-import { RECEIVE_ARTICLES, ADD_ARTICLE, DELETE_ARTICLE, REPLACE_ARTICLE } from '../actions';
-const initialState = { articles: [] };
-
+import  * as types from '../actions';
+const initialState = { articles: [], isLoading: false  };
+/*
 export default function articlesReducer(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_ARTICLES:
@@ -22,4 +22,46 @@ export default function articlesReducer(state = initialState, action) {
           });
     default: return state;
   }
-}
+}*/
+
+
+export default function articlesReducer(state = initialState, action = null) {
+  
+  switch (action.type) {
+     
+  case types.GET_ARTICLE:    
+  return { ...state, isLoading: true };
+
+  case types.GET_ARTICLE_SUCCESS:
+    
+  return { ...state, isLoading: false, subscriberDetails: action.data };
+
+  case types.GET_ARTICLE_FAIL:
+  return { ...state, isLoading: false, error: action.error };
+
+
+  case types.CREATE_SUBSCRIBER:
+    
+  return { ...state, isLoading: true };
+  case types.CREATE_SUBSCRIBER_SUCCESS:
+    
+  return { ...state, isLoading: false, subscriberDetails: action.data };
+  case types.CREATE_SUBSCRIBER_FAILED:
+    
+
+
+
+  return { ...state, isLoading: false, error: action.error };
+  case types.UPDATE_SUBSCRIBER:
+    
+  return { ...state, isLoading: true };
+  case types.UPDATE_SUBSCRIBER_SUCCESS:
+    
+  return { ...state, isLoading: false, subscriberDetails: action.data };
+  case types.UPDATE_SUBSCRIBER_FAILED:
+  return { ...state, isLoading: false, error: action.error };
+
+
+  default: return state;
+    }
+  }
