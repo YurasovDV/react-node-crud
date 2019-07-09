@@ -1,5 +1,4 @@
-import axios from 'axios';
-import history from '../history';
+// it's not mandatory to have separate success/fail types
 
 export const GET_ARTICLE = 'GET_ARTICLE';
 export const GET_ARTICLE_SUCCESS = 'GET_ARTICLE_SUCCESS';
@@ -27,8 +26,6 @@ export const UPDATE_ARTICLE_FAIL = 'UPDATE_ARTICLE_FAIL';
 export const REPLACE_ARTICLE = 'REPLACE_ARTICLE';
 export const REPLACE_ARTICLE_SUCCESS = 'REPLACE_ARTICLE_SUCCESS';
 export const REPLACE_ARTICLE_FAIL = 'REPLACE_ARTICLE_FAIL';
-
-const apiUrl = 'http://localhost:3001/articles';
 
 /*
 export const getArticles = () => {
@@ -91,15 +88,22 @@ export const updateArticle = (article) => {
 };
 */
 
+export function getArticles() {
+  return { type: RECEIVE_ARTICLES};
+}
+
 export function getArticle(id) {
-  
-return { type: GET_ARTICLE, id };
+  return { type: GET_ARTICLE, id };
 }
+
 export function addArticle(article) {
-  
-return { type: ADD_ARTICLE, article };
+  return { type: ADD_ARTICLE, article };
 }
+
 export function updateArticle(article, id) {
-  
-return { type: UPDATE_ARTICLE, article, id };
+  return { type: UPDATE_ARTICLE, article, id };
+}
+
+export function deleteArticle(id){
+  return { type: DELETE_ARTICLE, id };
 }
