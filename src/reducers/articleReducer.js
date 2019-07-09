@@ -1,6 +1,7 @@
 import * as types from '../actions';
+import  { initialState} from './articlesReducer';
 
-export default function articleReducer(state = {}, action) {
+export default function articleReducer(state = initialState, action) {
   switch (action.type) {
 
     case types.GET_ARTICLE:
@@ -10,23 +11,13 @@ export default function articleReducer(state = {}, action) {
     case types.GET_ARTICLE_FAIL:
       return { ...state, isLoading: false, error: action.error };
 
+    case types.UPDATE_ARTICLE:
+      return { ...state, isLoading: true };
+    case types.UPDATE_ARTICLE_SUCCESS:
+      return { ...state, isLoading: false, subscriberDetails: action.data };
+    case types.UPDATE_ARTICLE_FAIL:
+      return { ...state, isLoading: false, error: action.error };
 
-      case types.UPDATE_ARTICLE:
-          return { ...state, isLoading: true };
-        case types.UPDATE_ARTICLE_SUCCESS:
-          return { ...state, isLoading: false, subscriberDetails: action.data };
-        case types.UPDATE_ARTICLE_FAIL:
-          return { ...state, isLoading: false, error: action.error };
-
-
-    // case GET_ARTICLE:
-    //   return action.article;
-      // case UPDATE_ARTICLE:
-      //     return {
-      //       id: action.id,
-      //       title: action.payload.title,
-      //       content: action.payload.content,
-      //     };
     default: return state;
   }
 };

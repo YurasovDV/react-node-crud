@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux';
+import reduceReducers from 'reduce-reducers';
 import articles from './articlesReducer';
 import article from './articleReducer';
 
-export default combineReducers({ articles: articles, article: article });
+export default reduceReducers(articles, article);

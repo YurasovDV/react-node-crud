@@ -38,27 +38,17 @@ function* createArticle(action) {
 
 function* getArticles() {
   try {
-    const data = axios.get(`${apiUrl}`)
-      .then(response => response.data);
+    const data = yield call( () => axios.get(`${apiUrl}`)
+      .then(response => response.data));
+
+  debugger;
+
     yield put({ type: RECEIVE_ARTICLES_SUCCESS, data });
   }
   catch (error) {
     yield put({ type: RECEIVE_ARTICLES_FAIL, error });
   }
 }
-
-/*
-export const getArticles = () => {
-  return (dispatch) => {
-    return axios.get(`${apiUrl}`)
-      .then(response => {
-        dispatch({ type: RECEIVE_ARTICLES, articles: response.data })
-      })
-      .catch(error => { throw (error); });
-  };
-};
-*/
-
 
 export function* articleSaga() {
   yield all(

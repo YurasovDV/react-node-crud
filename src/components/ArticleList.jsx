@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import { getArticles } from '../actions';
 
 class ArticleList extends Component {
+
+  componentDidMount() {
+    this.props.getArticles();
+  }
+
   render() {
     if (this.props.articles.length) {
       return (
@@ -22,11 +27,15 @@ class ArticleList extends Component {
         </div>
       )
     } else {
-      return (<div> No Articles</div >)
+      return (<div>No Articles</div >)
     }
   }
 }
 
 const mapStateToProps = (state) => ({ articles: state.articles });
 
-export default connect(mapStateToProps)(ArticleList);
+const mapDispatchToProps = {
+  getArticles,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleList);
