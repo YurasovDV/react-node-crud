@@ -1,6 +1,7 @@
 import { all, put, takeLatest, call, take, actionChannel } from 'redux-saga/effects';
 import axios from 'axios';
 import * as actionTypes from '../actionTypes';
+import history from '../history';
 
 const apiUrl = 'http://localhost:3001/articles';
 
@@ -30,6 +31,7 @@ function* createArticle(action) {
       .then(response =>
         response.data));
     yield put({ type: actionTypes.ADD_ARTICLE_SUCCESS, payload: { id: data.id, title: data.title, content: data.content } });
+    history.push('/articles');
   }
   catch (error) {
     yield put({ type: actionTypes.ADD_ARTICLE_FAIL, error });
@@ -53,9 +55,25 @@ function* deleteArticle(action) {
     yield call(
       () => axios.delete(`${apiUrl}/${id}`));
     yield put({ type: actionTypes.DELETE_ARTICLE_SUCCESS, payload: { id } });
+    history.push('/articles');
   }
   catch (error) {
     yield put({ type: actionTypes.DELETE_ARTICLE_FAIL, error });
+  }
+}
+
+function* updateArticle(action) {
+  try {
+    const article = action.article;
+    const updated = yield call(() =>
+      axios.put(`${apiUrl}/${article.id}`, { title: article.title, content: article.content })
+        .then(response => response.data));
+    yield put({ type: actionTypes.UPDATE_ARTICLE_SUCCESS, payload: updated });
+    // yield put({ type: actionTypes.REPLACE_ARTICLE_SUCCESS, payload: { id: updated.id, title: updated.title, content: updated.content } });
+    history.push('/articles');
+  }
+  catch (error) {
+    yield put({ type: actionTypes.UPDATE_ARTICLE_FAIL, error });
   }
 }
 
@@ -65,6 +83,7 @@ export function* articleSaga() {
       takeLatest(actionTypes.ADD_ARTICLE, createArticle),
       takeLatest(actionTypes.RECEIVE_ARTICLES, getArticles),
       takeLatest(actionTypes.DELETE_ARTICLE, deleteArticle),
+      takeLatest(actionTypes.UPDATE_ARTICLE, updateArticle)
     ]
   );
 }

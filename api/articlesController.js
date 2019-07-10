@@ -25,7 +25,8 @@ const deleteArticle = function (req, res) {
   const id = parseId(req);
   console.log(`delete: id=${id}`);
   articlesGLOBAL = articlesGLOBAL.filter(it => it.id !== id);
-  res.status(200);
+  res.status(204);
+  res.json({});
   res.end();
 }
 

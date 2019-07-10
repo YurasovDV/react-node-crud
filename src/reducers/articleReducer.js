@@ -14,7 +14,7 @@ export default function articleReducer(state = initialState, action) {
     case types.UPDATE_ARTICLE:
       return { ...state, isLoading: true };
     case types.UPDATE_ARTICLE_SUCCESS:
-      return { ...state, isLoading: false, article: action.data };
+      return { ...state, isLoading: false, article: action.payload };
     case types.UPDATE_ARTICLE_FAIL:
       return { ...state, isLoading: false, error: action.error };
 

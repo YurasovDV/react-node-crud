@@ -1,5 +1,4 @@
 import * as types from '../actionTypes';
-import history from '../history';
 
 const initialState = { articles: [], isLoading: false };
 
@@ -17,7 +16,6 @@ export default function articlesReducer(state = initialState, action = null) {
     case types.ADD_ARTICLE:
       return { ...state, isLoading: true };
     case types.ADD_ARTICLE_SUCCESS:
-      // history.push('/articles');
       return { ...state, isLoading: false, articles: state.articles.concat(action.payload), article: action.payload };
     case types.ADD_ARTICLE_FAIL:
       return { ...state, isLoading: false, error: action.error };
