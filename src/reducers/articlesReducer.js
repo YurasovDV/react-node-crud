@@ -1,6 +1,7 @@
-import * as types from '../actions';
-const initialState = { articles: [], isLoading: false };
+import * as types from '../actionTypes';
+import history from '../history';
 
+const initialState = { articles: [], isLoading: false };
 
 export default function articlesReducer(state = initialState, action = null) {
 
@@ -9,16 +10,15 @@ export default function articlesReducer(state = initialState, action = null) {
     case types.RECEIVE_ARTICLES:
       return { ...state, isLoading: true };
     case types.RECEIVE_ARTICLES_SUCCESS:
-      const res = { ...state, isLoading: false, articles: action.data };
-      debugger;
-      return res;
+      return { ...state, isLoading: false, articles: action.data };
     case types.RECEIVE_ARTICLES_FAIL:
       return { ...state, isLoading: false, error: action.error };
 
     case types.ADD_ARTICLE:
       return { ...state, isLoading: true };
     case types.ADD_ARTICLE_SUCCESS:
-      return { ...state, isLoading: false, articles: state.articles.concat(action.payload) };
+      // history.push('/articles');
+      return { ...state, isLoading: false, articles: state.articles.concat(action.payload), article: action.payload };
     case types.ADD_ARTICLE_FAIL:
       return { ...state, isLoading: false, error: action.error };
 

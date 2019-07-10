@@ -35,4 +35,5 @@ class ArticleAdd extends React.Component {
 
 const mapDispatchToProps = { addArticle }
 
-export default connect(null, mapDispatchToProps)(ArticleAdd);
+const mapStateToProps = null;
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleAdd);
